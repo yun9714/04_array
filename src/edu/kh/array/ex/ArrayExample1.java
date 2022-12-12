@@ -1,5 +1,6 @@
 package edu.kh.array.ex;
 
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class ArrayExample1 {
@@ -84,31 +85,145 @@ public class ArrayExample1 {
 		// 평균 : 177.02cm
 		
 		Scanner sc = new Scanner(System.in);
-		System.out.print("1번 키 입력 : ");
-		double cm1 = sc.nextDouble();
-		double[] arr = new double[4];
-		arr[0] = cm1;
-		System.out.print("2번 키 입력 : ");
-		double cm2 = sc.nextDouble();
-		arr[1]= cm2;
-		System.out.print("3번 키 입력 : ");
-		double cm3 = sc.nextDouble();
-		arr[2] = cm3;
-		System.out.print("4번 키 입력 : ");
-		double cm4 = sc.nextDouble();
-		arr[3] = cm4;
-		System.out.print("5번 키 입력 : ");
-		double cm5 = sc.nextDouble();
-		arr[4] = cm5;
-		double avg = (cm1 + cm2 + cm3 + cm4 + cm5) / 5;
+		double[] height = new double[5];
+
+		for(int i = 0; i < height.length; i++) {
+			// 0 1 2 3 4
+			System.out.printf((i + 1) + "번 키 입력 :");
+			height[i] = sc.nextDouble();
+			// 각 인덱스에 입력받은 값을 대입(초기화)
+		} System.out.println(); // 줄바꿈
+		
+		double sum = 0; // 합계용 변수
+		
+		for(int i = 0; i < height.length; i++) {
+			System.out.print(height[i] + " ");
+			sum += height[i]; // sum + height[i]
+		} System.out.printf("\n평균 : %.2f\n", sum / height.length);
+	}
+	public void ex4() {
+		// 입력 받은 인원 수 만큼의 점수를 입력 받아 배열에 저장
+		// 입력이 완료되면 점수 합계, 평균, 최고점, 최저점 출력
+		
+		/* ex)
+		 * 입력 받을 인원 수 : 4
+		 * 1번 점수 입력 : 100
+		 * 2번 점수 입력 : 80
+		 * 3번 점수 입력 : 50
+		 * 4번 점수 입력 : 60
+		 * 
+		 * 합계 : 290
+		 * 평균 : 72.5
+		 * 최고점 : 100
+		 * 최저점 : 50
+		 */
+		Scanner sc = new Scanner(System.in);
+		System.out.print("입력 받을 인원 수 : ");
+		int a = sc.nextInt();
+		double[] score = new double[a];
+		double sum = 0;
+		
+		for(int i = 0; i < score.length; i++) {
+			System.out.printf((i + 1) + "번 점수 입력 :");
+			score[i] = sc.nextDouble();
+			sum += score[i]; 
+		}
+		// 최고/최저점 구하기
+		double max = score[0];
+		double min = score[0];
+		
+		for(int i = 0; i < score.length; i++) {
+			if (score[i] > max) { // 최고점 비교
+				max = score[i];
+			} else if(score[i] < min) { // 최저점 비교
+				min = score[i];
+			}
+		}
+		System.out.printf("합계 : %.1f\n", sum);
+		System.out.printf("평균 : %.1f\n", sum / score.length);
+		System.out.println("최고점 : " + max);
+		System.out.println("최저점 : " + min);
+	}
+	public void ex5() {
+		// 배열 선언과 동시에 초기화
+		char [] arr = new char[5];
+		// char[] arr이 참조하는 배열 요소에 A,B,C,D,E 대입하기
 		
 		for(int i = 0; i < arr.length; i++) {
-			// 0 1 2 3 4
-			System.out.printf("입력받은 키 : %d\n", arr[i]);
-		}System.out.println("평균 : " + avg);
+			arr[i] = (char)('A' + i);
+		}
+	
+	// ** Arrays 클래스
+	// -> java에서 제공하는 배열과 관련된 기능을 모아둔 클래스
+	int[] arr2 = new int[4];
+	// Arrays.toString(배열명) : 모든 요소 값 출력
+	System.out.println(Arrays.toString(arr)); // -> 위의 arr안에 ABCDE 들어가 있는 거 다 나옴
+	System.out.println(Arrays.toString(arr2));
+	
+	// 배열 선언과 동시에 초기화(위에 for와 같지만 다른 방법)
+	char[] arr3 = {'A','B','C','D','E'}; 
+	
+	// char[]참조 변수 arr3을 선언하고 
+	// heap영역에 char 5칸짜리 char[]을 생성하고
+	// 각각 'A', 'B' 'C', 'D', 'E'로 초기화 후 주소를 arr3에 대입
+	
+	System.out.println(Arrays.toString(arr3)); 
+	// System.out.println(Arrays.toString(arr1));과 똑같이 나옴 
 	}
-
+	public void ex6() {
+		// 배열을 이용한 검색
+		// 입력받은 정수가 배열에 있는지 없는지 확인
+		// 만약 있다면 몇 번 인덱스에 존재하는지 확인
+		
+		int[] arr = {100,200,300,400,500,600,700,800,900,1000};
+		
+		Scanner sc = new Scanner(System.in);
+		System.out.print("정수 입력 : ");
+		int input = sc.nextInt();
+		
+		// 신호를 나타내기 위한 변수
+		// flag == false : 일치하는 값이 존재하지 않을 때
+		// flag == true : 일치하는 값이 존재할 때
+		
+		boolean flag = false; // 검사 전에는 없다고 가정
+		
+		// arr 배열 요소에 순차 접근
+		for(int i = 0; i < arr.length; i++) {
+			if(arr[i] == input) {
+				System.out.println(i + "번째 인덱스에 존재");
+				flag = true; // 일치하는 값이 있으므로 true로 변경
+			}
+		}
+		// flag 상태를 검사
+		if(!flag) { // flag !(true)
+			// true여야 실행 but true이면 존재하지 않음이 뜸 -> false일때 뜨도록 !flag
+			System.out.println("존재하지 않음");
+		}
+		
+	}
+	public void ex7() {
+		// 입력 받은 값과 일치 값이 있으면 인덱스 번호 출력
+		// 없으면 "존재하지 않음"
+		String[] arr = {"사과", "딸기", "바나나", "키위", "멜론", "아보카도"};
+		// equals() ==> 배열명[i].equals(비교할 값) -> String 비교할 때 사용
+		
+		Scanner sc = new Scanner(System.in);
+		System.out.print("과일 입력 : ");
+		String input = sc.next();
+		
+		boolean flag = false; 
+		
+		for(int i = 0; i < arr.length; i++) {
+			if(arr[i].equals(input)) {
+				System.out.println(i + "번째 인덱스에 존재");
+				flag = true; 
+			}
+		}
+		if(!flag) { // flag !(true)
+			// true여야 실행 but true이면 존재하지 않음이 뜸 -> false일때 뜨도록 !flag
+			System.out.println("존재하지 않음");
+		}
+	}
 	
-	
-//
+	//
 }
