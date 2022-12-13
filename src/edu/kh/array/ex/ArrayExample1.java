@@ -5,9 +5,14 @@ import java.util.Scanner;
 
 public class ArrayExample1 {
 	/* 배열(Array)
-	 * - 같은 자료형의 변수를 하나의 묶음으로 다루는 것(자료구조)
+	 * - >같은 자료형<의 변수를 하나의 묶음으로 다루는 것(자료구조)
 	 * - 묶여진 변수들은 하나의 배열 명으로 불려지고 구분은 index를 이용함
 	 * (index는 0부터 시작하는 정수)
+	 *
+	 * 특징
+	 * 1. 한가지 자료형만 저장가능(int는 int만 string은 string만)
+	 * 2. 여러 값을 저장
+	 * 3. 한 번 크기를 지정하면 변경 불가능
 	 */
 	public void ex1() {
 		// 변수 vs 배열
@@ -224,6 +229,52 @@ public class ArrayExample1 {
 			System.out.println("존재하지 않음");
 		}
 	}
+	public void ex8() {
+		// 1. 문자열을 입력 받아 한 글자씩 잘라내어 char 배열에 순서대로 저장
+		// 2. 문자 하나를 입력받아 일치하는 문자가 char 배열에 몇 개 존재하는지 확인
+		// 3. 단, 일치하는 문자가 없을 경우"존재하지 않습니다."출력
+		// [사용해야되는 기술, 기능]
+		// 1) 배열 검색
+		// 2) String.length() : 문자열의 길이
+		//  ex) "Hello".length() -> 5
+		// 3) String.charAt(index) : 문자열에서 특정index에 위치한 문자 하나를 얻어옴
+		//  ex) "Hello".charAt(1) -> 'e'
+		//       01234
+		// 4) count (숫자 세기)
+		Scanner sc = new Scanner(System.in);
+		System.out.print("문자열 입력 : ");
+		String input = sc.nextLine();
+		// hello
+		
+		// 1. 문자열을 입력 받아 한 글자씩 잘라내어 char 배열에 순서대로 저장
+		char[] arr = new char[input.length()]; // 공간생성
 	
-	//
+ 		for(int i = 0; i < arr.length; i++) {
+ 			arr[i] = input.charAt(i);
+		} 
+ 		// 2. 문자 하나를 입력 받아 일치하는 문자가 char 배열에 몇개 존재하는지 확인
+ 		System.out.print("검색할 문자 입력 : ");
+ 		char ch = sc.nextLine().charAt(0); // 한 자리만 검색하기때문에 제일 앞인 0번째 인덱스 검색
+ 		//char ch = sc.next().charAt(0);도 가능
+ 		int count = 0; // 같은 글자 개수 세기 위한 변수
+ 		
+ 		for(int i = 0; i < arr.length; i++) {
+ 			if(arr[i] == ch) {
+ 				count++;
+ 			}
+ 		}
+ 		// 결과 출력
+ 		if(count > 0) {
+ 			System.out.println(count + "개 있음");
+ 		} else {
+ 			// 3. 단, 일치하는 문자가 없을 경우 "존재하지 않습니다." 출력
+ 			System.out.println("존재하지 않습니다.");
+ 		}
+	}
+	public void ex9() {
+		
+	}
+	
+	
+//
 }
